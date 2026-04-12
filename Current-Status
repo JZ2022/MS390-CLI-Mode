@@ -1,0 +1,44 @@
+As of today, April 12, 2026, I have gotten full IOS-XE CLI access funtioning like a normal 9300 with one major caveat. 
+
+After lots of testing and expirementing, I have gotten the MS390 to behave like a standard 9300 with local CLI. The only issue at this point is config persistance. The method currently involves mashing the front reset button to get into ROMMON on startup and setting SWITCH_IGNORE_STARTUP_CFG=1. This will allow the switch to boot to a standard Switch> prompt. In this state, no Meraki service are running and service meraki connect is disabled by default. Switch is fully configurable and passes traffic normally. You can attempt to write the startup config and it will appear to succeed. However, when the flag SWITCH_IGNORE_STARTUP_CFG is unset or set to 0, something in the firmware will forefully overwrite the startup-config that is currently preset with a generic Meraki-ified one. 
+
+Currently, there are only two methods around this. Setting SWITCH_IGNORE_STARTUP_CFG=1, or creating a directory on flash: and pointing CONFIG_FILE at it. The moment the Meraki code tries to overwrite the startup-config, it will crash/fail because it is trying to save as a directory. It will then boot to the same Switch> prompt and empty running-config. The only work-around I have done is to manually save the startup-config as a file, eg. copy running-config flash:9300-conf then running copy 9300-conf running-config after reboot. 
+
+Version tested: IOS-XE 17.18.2 installed from Meraki Dashboard.
+
+ROMMON Config:
+ABNORMAL_RESET_COUNT=0
+AUTO_SWITCH_CONSOLE_DISABLE=0
+BAUD=9600
+BOARDID=24697
+BOOT=flash:packages.conf
+BOOT_DEVICE_MODE=catalyst
+BSI=0
+CONFIG_FILE=conf.cfg
+CONSOLE_MIRRORING_DISABLE=0
+CSDL_ENTROPY_REQUIREMENT_DISABLE=
+CSDL_MODE_DISABLE=1
+DC_COPY=yes
+DEFAULT_GATEWAY=192.168.99.1
+ENABLE_BREAK=yes
+FIPS_MODE=
+IP_ADDRESS=192.168.99.40
+MANUAL_BOOT=no
+MCP_STARTUP_TRACEFLAGS=00000000:00000000
+MERAKI_MGMT_MODE=no
+MODEL_NUM=MS390-48UX
+MODEL_REVISION_NUM=D0
+MOTHERBOARD_ASSEMBLY_NUM=73-19483-01
+MOTHERBOARD_REVISION_NUM=B0
+MOTHERBOARD_SERIAL_NUM=
+NETMASK=255.255.255.0
+RANDOM_NUM=137647182
+RET_2_RCALTS=1776020573
+RET_2_RTS=14:02:53 CDT Sun Apr 12 2026
+ROMMON_AUTOBOOT_ATTEMPT=0
+ReloadReason=Image Install RET_2_RCALTS=1775850127
+SWITCH_IGNORE_STARTUP_CFG=1
+SWITCH_NUMBER=1
+TEMPLATE=access
+USB_DISABLE=0
+VERSION_ID=V01
