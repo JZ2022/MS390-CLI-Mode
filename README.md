@@ -1,2 +1,8 @@
 # MS390-CLI-Mode
 Repo documenting all attempts and progress to convert Meraki MS390 to a local CLI managed Catalyst switch.
+
+The Meraki MS390 series of switches came out in 2019 and was their first attempt on running Meraki management on standard Catalyst hardware. At the time, it was their flagship halo product. Higher end models support 60w PoE on all ports and featured 32 2.5G ports and 12 10G ports. The MS390 series is literally a standard Catalyst 9300 mainboard and chassis with slightly modified firmware and a Meraki abstraction layer running on IOS-XE.
+
+When it first came out; it was a highly specialized variant of IOS-XE that ran a kind of Meraki VM to translate Meraki commands into IOS commands. This complication led to massive stability issues over the years and eventually lead to Cisco replacing the model entierely with the 9300-M line, which are 9300 switches designed to be configured from Meraki out-of-the-box. To get angry customers off their back, they also came out with Cloud-Native IOS-XE for all 9000 series catalyst switches and the MS390 which makes Meraki configuration a lot more stable. The 9300-M series, however, can be converted officially to be configured via CLI just like a normal 9300 unlike the MS390 marking the singular difference between the two products.
+
+The MS390 lacks any of the visible console ports seen on a standard 9300, except behind a little piece of plastic on the back where the RJ45 console port would be on a 9300. If you pop it off, the RJ45 console port is present and fully functional. The goal of this repo is to document all known exploits with the MS390 specifically to try and convert the unit to be a fully functional, locally configured, 9300 with no cloud license or reliance.
