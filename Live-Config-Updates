@@ -1,0 +1,27 @@
+This document describes how to make live changes to the running config and save them to persist without the need to remove the SD card and flip the write-protect switch. This guide assumes you have already followed the steps to get config persistance working with a write-protected SD card found in the Current-Status document.
+
+This guide utilizes an EEM script baked into the SD Card read only config that copies a config file from flash and merges it with the running config upon startup.
+
+1. Make sure you SD card has write access enabled.
+2. Copy your running config to a new file in flash: eg. flash:current-conf
+3. Create an EEM script that runs on startup and copies this file to the running config. eg.
+  event manager applet BOOT_COPY_CONF authorization bypass
+    description "Copies current-conf to running-config on startup"
+    event timer cron cron-entry "@reboot"
+    action 1.0 cli command "enable"
+    action 2.0 cli command "configure terminal"
+    action 3.0 cli command "file prompt quiet"
+    action 4.0 cli command "end"
+    action 5.0 cli command "copy flash:current-conf running-config"
+    action 6.0 cli command "configure terminal"
+    action 7.0 cli command "no file prompt quiet"
+    action 8.0 cli command "end"
+    action 9.0 syslog msg "EEM: Successfully merged flash:current-conf into running-config"
+4. (optional) Create aliases to make saving the config easier 
+  alias exec wr copy running-config flash:current-conf
+  alias exec write memory copy running-config flash:current-conf
+5. Write this config to your startup config on you SD card.
+6. Remove SD card and adapter and set back to write-protected.
+7. reload
+
+    
