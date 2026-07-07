@@ -5,6 +5,8 @@ After lots of testing and expirementing, I have gotten the MS390 to behave like 
 To stop this from happening, you need to prevent the Meraki service from being able to write over the startup config. The best solution I have currently is to use a full-sized SD card with a write-protect switch. 
 
 What you need:
+ - A computer to register a temporary cloud account.
+ - An internet connection to let the switch pull its final update.
  - A full-sized SD card with funtionine write-protect switch
  - A USB type-a to full SD card adapter the honors the write-protect status
 
@@ -22,6 +24,9 @@ Step-by-step instructions
 11. execute "set SWITCH_IGNORE_STARTUP_CFG=0" and then set the CONFIG_FILE to the new config you just created on the SD card eg. "set CONFIG_FILE=usbflash0:9300-conf"
 12. execute "boot"
 13. It should now boot into IOS-XE with the config you saved to the SD card unmodified
+
+You can optionally embed an EEM script into this 'immutable' SD card config for config persistance. Bascially, write a script that overwrites the running config with an arbiturary config file stored in flash. Then just write all changes to you config to that file. 
+You can also make an alias for the 'wr' command to automate this.
 
 
 Version tested: IOS-XE 17.18.2 installed from Meraki Dashboard.
