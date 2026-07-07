@@ -37,7 +37,7 @@ event manager applet BOOT_COPY_CONF authorization bypass
  action 2.0 cli command "configure terminal"
  action 3.0 cli command "file prompt quiet"
  action 4.0 cli command "end"
- action 5.0 cli command "copy flash:9300-conf running-config"
+ action 5.0 cli command "configure replace flash:9300-conf force"
  action 6.0 cli command "configure terminal"
  action 7.0 cli command "no file prompt quiet"
  action 8.0 cli command "end"
