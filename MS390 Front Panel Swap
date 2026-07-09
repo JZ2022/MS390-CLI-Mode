@@ -1,0 +1,11 @@
+For people who have used or seen an MS390, the front is noticably barren and the USB ports found on a normal 9300 are not present. However, I've found that the daughterboard across most of Ciscos UADP 1.0/2.0/3.0 seem to be interchangable, or at least compatible.
+This means that a daughterboard from a parts 9300, 9300L, 3850, or even 3650 are all compatable in theory. You CAN sawp them to get your front USB-A port and console port back. 
+
+What you need:
+ - A Phillips head screwdriver
+ - the Daughterboard from a donor switch
+ - The front bezel from a donor switch
+
+There are a couple nuances with the donor parts. I would recommend finding a later rev 3850 donor switch as those retooled the front panel slightly and are more physically compatible wit the later MS390/9300 chassis. You can tell the difference because the older ones will have the mode button sticking out right over port 1. This caused a recal resulting in later revs having a recessed Cisco logo and mode button, and the mode button was also shifter to the right a small ammount. I used an older rev 3850 bezel because thats what I had, it just doesn't fit as well. 
+
+3850, and possibly 9300, front bezels may not fit properly vanilla due to clear LED path guides for the main ports on the switch causing clearance issues. It's very easy to remove this guide layer, but slightly destructive. The pictures included in the repo are swapping an early pre-recall 3850-48p daughterboard and bezel onto an MS390-48UX. If you decide one sourcing an older 3850 daughterboard and bezel, the screw holes will not line up. You will need to source the modular tooling for the threads from a 3850 as well, but thats easily swapped as well. 
